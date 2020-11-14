@@ -14,3 +14,7 @@ printf "\xbf\x01\xbf" | cat - tmp.bin > output.bin && rm tmp.bin
 Remember that, before sending the protobuf to a TAK client, you need to add a header consisting of the three bytes "0xbf 0x01 0xbf" to the beginning of the packet.
 
 Currently works well for SA and PLI messages, but the "TakControl" and "detail" elements require more work to be reliable with other types of CoT such as GeoChat messages.
+
+## To Do
+
+- Properly handle child elements of `<detail>`. In the output, `xmlDetail` should contain a string with plain XML for any elements that are not included in the strongly typed messages included in the TAK .proto files.
