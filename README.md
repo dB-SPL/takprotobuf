@@ -8,7 +8,7 @@ The script accepts Cursor-on-Target XML messages from STDIN.
 It returns a formatted string on the STDOUT ready to be encoded as a protobuf using protoc and the .proto files from the ATAK repo.
 
 ```bash
-cat input.xml | python3 TAKxml2protobuf.py
+cat input.xml | python3 TAKxml2protobuf.py```
 
 ## To Do
 
