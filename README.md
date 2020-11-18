@@ -13,7 +13,7 @@ It returns a formatted string on the STDOUT ready to be encoded as a protobuf us
 ## To Do
 
 - Properly handle child elements of `<detail>`. In the output, `xmlDetail` should contain a string with plain XML for any elements that are not included in the strongly typed messages included in the TAK .proto files.
-- Exeption handling
+- Exception handling
 
 ## Credits
 
