@@ -15,7 +15,7 @@ outtxt = open('out.txt', 'w')
 outtxt.close()
 # Open output file for writing
 outtxt = open("out.txt", "a")
-# include blank takControl element - need to add parsing for takControl elements in GeoChat messages
+# If the CoT is GeoChat, include the contact's UID in {takControl}
 outtxt.write("takControl {\n")
 if "GeoChat." in cot.event['uid']:
         contactUid = cot.event['uid'].split(".")[1]
