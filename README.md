@@ -77,4 +77,4 @@ cotEvent {
 
 ## Credits
 
-I've included the .proto files required to encode TAK protobufs from the ATAK repository at https://github.com/deptofdefense/AndroidTacticalAssaultKit-CIV
+I couldn't have created this without all of the examples of CoT XML provided by the developers of FreeTAKServer at https://github.com/FreeTAKTeam/FreeTakServer/tree/master/docs/Example%20metrics/cot
