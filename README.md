@@ -82,3 +82,7 @@ When TAK clients send UDP packets containing protobufs, there is a three byte he
 ## Credits
 
 I couldn't have created this without all of the examples of CoT XML provided by the developers of FreeTAKServer at https://github.com/FreeTAKTeam/FreeTakServer/tree/master/docs/Example%20metrics/cot
+
+Built using Protoc, the protobuf compiler https://github.com/protocolbuffers/protobuf
+
+and the .proto files from the ATAK repository https://github.com/deptofdefense/AndroidTacticalAssaultKit-CIV/tree/master/commoncommo/core/impl/protobuf
