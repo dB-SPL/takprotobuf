@@ -71,7 +71,7 @@ cotEvent {
 
 ### TAK Protobuf Header Bytes
 
-When TAK clients send UDP packets containing protobufs, there is a three byte header consisting of `0xbf 0x01 0xbf`.  The `xmlToProto()` function add the header bytes for you, and the `parseProto()` functions expects them to be included in its input.  This may change in the future, as I learn more about the TAK ecosystem.
+When TAK clients send UDP packets containing protobufs, there is a three byte header consisting of `0xbf 0x01 0xbf`.  The `xmlToProto()` function adds the header bytes for you, and the `parseProto()` functions expects them to be included in its input.  This may change in the future, as I learn more about the TAK ecosystem.
 
 ## To Do
 
