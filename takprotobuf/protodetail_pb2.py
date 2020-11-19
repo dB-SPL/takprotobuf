@@ -12,12 +12,12 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import contact_pb2 as contact__pb2
-import group_pb2 as group__pb2
-import precisionlocation_pb2 as precisionlocation__pb2
-import status_pb2 as status__pb2
-import takv_pb2 as takv__pb2
-import track_pb2 as track__pb2
+from . import contact_pb2 as contact__pb2
+from . import group_pb2 as group__pb2
+from . import precisionlocation_pb2 as precisionlocation__pb2
+from . import status_pb2 as status__pb2
+from . import takv_pb2 as takv__pb2
+from . import track_pb2 as track__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
