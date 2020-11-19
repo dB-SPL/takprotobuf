@@ -5,14 +5,6 @@ import sys
 import re
 from .proto import TakMessage
 
-# Read XML from STDIN and parse
-#str = sys.stdin.read()
-
-# Read XML from local file
-#with open('chat.xml', 'r') as file:
-#	xml = file.read()
-#	file.close()
-
 def renderProto(xml):
 	cot = untangle.parse(xml)
 	takMessage = TakMessage()
