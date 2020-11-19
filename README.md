@@ -1,4 +1,4 @@
-# TAKxml2protobuf
+# takprotobuf
 
 Python script for processing CoT XML for encoding as Protocol Buffers
 
