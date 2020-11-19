@@ -1,6 +1,6 @@
 # takprotobuf
 
-Python script for processing CoT XML for encoding as Protocol Buffers
+Python library to encode and decode Cursor-on-Target (CoT) messages using Protocol Buffers.
 
 ## Usage
 
