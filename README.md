@@ -7,7 +7,7 @@ Python library to encode and decode Cursor-on-Target (CoT) messages using Protoc
 Where the string `xml` contains either a CoT message in XML or the path to an XML file containing a CoT message, the function `renderProto(xml)` will return a byte array containing the binary protobuf.
 
 ```
-from takprotobuf.TAKxml2protobuf import renderProto
+from takprotobuf import renderProto
 renderProto(xml)
 ```
 
