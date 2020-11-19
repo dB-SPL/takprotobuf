@@ -25,7 +25,7 @@ bytearray(b'\xbf\x01\xbf\x12\xff\x01\n\x0ba-f-G-E-V-C*$aa0b0312-b5cd-4c2c-bbbc-9
 
 ### parseProto()
 
-Given a bytearray containing a TAK protobuf, `parseProto(binary)` will return an instance of the protobuf class.
+Given a bytearray containing a TAK protobuf, `parseProto(binary)` will return an instance of the protobuf class.  You can then access the contents as an object.
 
 If `binary` contains the same bytearray above, the function will return:
 ```
