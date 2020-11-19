@@ -72,7 +72,7 @@ cotEvent {
 ## To Do
 
 - Clean up processing for the `xmlDetail` element
-- Parse bytearray containing protobuf into Python object
+- Encode protobuf directly from Python object or class
 - Exception handling
 
 ## Credits
