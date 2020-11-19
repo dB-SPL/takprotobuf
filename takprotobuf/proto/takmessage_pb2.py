@@ -12,8 +12,8 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import cotevent_pb2 as cotevent__pb2
-import takcontrol_pb2 as takcontrol__pb2
+from . import cotevent_pb2 as cotevent__pb2
+from . import takcontrol_pb2 as takcontrol__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
