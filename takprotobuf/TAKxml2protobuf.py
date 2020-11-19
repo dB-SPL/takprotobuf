@@ -81,7 +81,6 @@ def renderProto(xml):
 			if "GeoChat." in cot.event['uid']:
 				pattern = "<detail>(.*?)</detail>"
 				xmldetailstr = re.search(pattern, xml).group(1)
-	#			xmldetailstr = xmldetailstr.replace("\'", "\\\'").replace("\"","\\\'")
 				detail.xmlDetail = xmldetailstr
 
 			if 'contact' in dir(cot.event.detail):
@@ -93,10 +92,10 @@ def renderProto(xml):
 
 				if '__group' in dir(cot.event.detail):
 					if cot.event.detail.__group['name']:
-						detail.__group.name = cot.event.detail.__group['name']
+						detail.group.name = cot.event.detail.__group['name']
 
 					if cot.event.detail.__group['role']:
-						detail.__group.role = cot.event.detail.__group['role']
+						detail.group.role = cot.event.detail.__group['role']
 
 					if 'precisionlocation' in dir(cot.event.detail):
 						if cot.event.detail.precisionlocation['geopointsrc']:
@@ -106,7 +105,7 @@ def renderProto(xml):
 
 			if 'status' in dir(cot.event.detail):
 				if cot.event.detail.status['battery']:
-					detail.status.battery = cot.event.detail.status['battery']
+					detail.status.battery = int(cot.event.detail.status['battery'])
 
 			if 'takv' in dir(cot.event.detail):
 				if cot.event.detail.takv['device']:
@@ -123,10 +122,10 @@ def renderProto(xml):
 
 			if 'track' in dir(cot.event.detail):
 				if cot.event.detail.track['speed']:
-					detail.track.speed = cot.event.detail.track['speed']
+					detail.track.speed = float(cot.event.detail.track['speed'])
 
 				if cot.event.detail.track['course']:
-					detail.track.couse = cot.event.detail.track['course']
+					detail.track.course = float(cot.event.detail.track['course'])
 					
 	headerByteArray = bytearray(b'\xbf\x01\xbf')
 	takMessageByteArray = bytearray(takMessage.SerializeToString())
