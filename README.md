@@ -8,7 +8,7 @@ The library containst two basic functions, with a thrid in the works.   `parsePr
 
 ### xmlToProto()
 
-Given a string whitch contains either a CoT message in XML or the path to an XML file containing a CoT message, the function `renderProto(xml)` will return a byte array containing the binary protobuf.
+Given a string which contains either a CoT message in XML or the path to an XML file containing a CoT message, the function `renderProto(xml)` will return a byte array containing the binary protobuf.
 
 For example, if the string `xml` contained:
 ```
