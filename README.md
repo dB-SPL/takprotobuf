@@ -4,11 +4,11 @@ Python library to encode and decode Cursor-on-Target (CoT) messages using Protoc
 
 ## Usage
 
-The library currently contains two basic functions.   `parseProto()` decodes a protobuf and returns the contents of the message.  `xmlToProto()` encodes XML to TAK protobuf.  I'll be adding an additional functionton to encode a protobuf directlyfrom a Python oject or class.
+The library currently contains two basic functions.   `parseProto()` decodes a protobuf and returns the contents of the message.  `xmlToProto()` encodes XML to TAK protobuf.  I'll be adding an additional functionton to encode a protobuf directly from a Python oject or class.
 
 ### xmlToProto()
 
-Given a string which contains either a CoT message in XML or the path to an XML file containing a CoT message, the function `xmlToProto(xml)` will return a byte array containing the binary protobuf.
+Given a string which contains either a CoT message in XML or the path to an XML file containing a CoT message, the function `xmlToProto()` will return a byte array containing the binary protobuf.
 
 For example, if the string `xml` contained:
 ```
@@ -27,7 +27,7 @@ bytearray(b'\xbf\x01\xbf\x12\xff\x01\n\x0ba-f-G-E-V-C*$aa0b0312-b5cd-4c2c-bbbc-9
 
 ### parseProto()
 
-Given a bytearray containing a TAK protobuf, `parseProto(binary)` will return an instance of the protobuf class.  You can then access the contents as an object.
+Given a bytearray containing a TAK protobuf, `parseProto()` will return an instance of the protobuf class.  You can then access the contents as an object.
 
 If `binary` is a bytearray containing a TAK protobuf:
 ```
@@ -43,7 +43,6 @@ The function reurns an object which contains the data from the protobuf. Individ
 For example:
 ```
 from takprotobuf import parseProto
-
 decoded = parseProto(binary)
 print(decoded)
 ```
