@@ -29,7 +29,7 @@ bytearray(b'\xbf\x01\xbf\x12\xff\x01\n\x0ba-f-G-E-V-C*$aa0b0312-b5cd-4c2c-bbbc-9
 
 Given a bytearray containing a TAK protobuf, `parseProto(binary)` will return an instance of the protobuf class.  You can then access the contents as an object.
 
-If `binary` is a bytearray containing:
+If `binary` is a bytearray containing a TAK protobuf:
 ```
 bytearray(b'\xbf\x01\xbf\x12\xff\x01\n\x0ba-f-G-E-V-C*$aa0b0312-b5cd-4c2c-bbbc-9c4c702162610\xa0\xa2\xc7\xb8\x82.8\xa0\xa2\xc7\xb8\x82.@\x98\xf5\xc8\xb8\x82.J\x03h-eQ3\x98T\xa7b\xfdE@Y}*~\xbe\xf3\x84P\xc0aW\\\x1c\x95\x9b\xc4:@i\x00\x00\x00\xe0\xcf\x12cAq\x00\x00\x00\xe0\xcf\x12cAz\x82\x01\x12$\n\x15192.168.1.10:4242:tcp\x12\x0bEliopoli HQ\x1a\x0c\n\x06Yellow\x12\x02HQ*\x02\x08d2F\n\x11LENOVO 20QV0007US\x12\nWinTAK-CIV\x1a\x19Microsoft Windows 10 Home"\n1.10.0.137:\x00')
 ```
@@ -38,7 +38,7 @@ You would call the parseProto() function with
 from takprotobuf import parseProto
 decoded = parseProto(binary)
 ```
-The function reurns an object which contains the data from the protobuf. A built-in method will return pretty-printed data if you call higher level elements.
+The function reurns an object which contains the data from the protobuf. Individual attributes can be accessed by calling them directly, and a built-in method will return pretty-printed data if you call higher level elements.
 
 For example:
 ```
