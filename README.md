@@ -46,7 +46,7 @@ from takprotobuf import parseProto
 decoded = parseProto(binary)
 print(decoded)
 ```
-returns a human-readable representation of the object.  I'll be adding the option to return an object that is more similar to the way CoT XML is organized.
+returns a human-readable representation of the object.  By default, the attributes are laid out in the same hierarchy as TAK protocol, which is different from CoT XML.  I'll be adding the option to return an object that is more similar to the way CoT XML is organized.
 ```
 cotEvent {
   type: "a-f-G-E-V-C"
