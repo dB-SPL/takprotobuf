@@ -4,7 +4,7 @@ Python library to encode and decode Cursor-on-Target (CoT) messages using Protoc
 
 ## Usage
 
-The library containst two basic functions, with a thrid in the works.   `parseProto()` decodes a protobuf and returns the contents of the message.  `xmlToProto()` encodes XML to TAK protobuf.  I'll be adding another functionton to encode directly from a Python object or class.
+The library currently contains two basic functions.   `parseProto()` decodes a protobuf and returns the contents of the message.  `xmlToProto()` encodes XML to TAK protobuf.  I'll be adding an additional functionton to encode a protobuf directlyfrom a Python oject or class.
 
 ### xmlToProto()
 
