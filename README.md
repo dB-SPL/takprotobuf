@@ -39,8 +39,16 @@ from takprotobuf import parseProto
 decoded = parseProto(binary)
 ```
 The function reurns an object which contains the data from the protobuf. A built-in method will return pretty-printed data if you call higher level elements.
-print(decoded)
 
+For example:
+```
+from takprotobuf import parseProto
+
+decoded = parseProto(binary)
+print(decoded)
+```
+returns a human-readable representation of the object.
+```
 cotEvent {
   type: "a-f-G-E-V-C"
   uid: "aa0b0312-b5cd-4c2c-bbbc-9c4c70216261"
