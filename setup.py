@@ -15,10 +15,8 @@ setuptools.setup(
 	keywords=['TAK', 'ATAK', 'WinTAK', 'Python', 'Opensource'],
     packages=setuptools.find_packages(),
 	install_requires=[
-        'lxml'
 		'untangle',
-		're',
-        'setuptools',
+		'lxml',
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
