@@ -100,10 +100,10 @@ def xmlToProto(xml):
 
 					if 'precisionlocation' in dir(cot.event.detail):
 						if cot.event.detail.precisionlocation['geopointsrc']:
-							detail.precisionlocation.geopointsrc = cot.detail.precisionlocation['geopointsrc'] # must be a string
+							detail.precisionLocation.geopointsrc = cot.event.detail.precisionlocation['geopointsrc'] # must be a string
 							
 						if cot.event.detail.precisionlocation['altsrc']:
-							detail.precisionlocation.altsrc = cot.detail.precisionlocation['altsrc'] # must be a string
+							detail.precisionLocation.altsrc = cot.event.detail.precisionlocation['altsrc'] # must be a string
 
 			if 'status' in dir(cot.event.detail):
 				if cot.event.detail.status['battery']:
