@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="takprotobuf",
     version="0.0.1",
-    author="Delta Bravo-15",
+    author="dB-SPL",
     author_email="deltabravo15ga@gmail.com",
     description="A Python library to encode and decode Cursor-on-Target (CoT) messages using Protocol Buffers.",
     long_description=long_description,
