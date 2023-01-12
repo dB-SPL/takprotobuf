@@ -1,6 +1,6 @@
-'TAK Protocol Payload - Version 1' Python Module (takproto)
-***********************************************************
-`takproto` is a Python module to encode & decode 'TAK Protocol Payload - Version 1' 
+TAK Protocol Payload - Version 1 Python Module (takproto)
+*********************************************************
+``takproto`` is a Python module to encode & decode 'TAK Protocol Payload - Version 1' 
 Protocol Buffer based Cursor on Target (CoT) messages.
 
     Version 1 of the TAK Protocol Payload is a Google Protocol Buffer based
@@ -20,7 +20,7 @@ xml2proto()
 -----------
 
 Given a string which contains either a CoT message in XML or the path to an XML file 
-containing a CoT message, the function `xml2proto()` will return a bytearray containing 
+containing a CoT message, the function ``xml2proto()`` will return a bytearray containing 
 the binary protobuf::
 
     import takproto
@@ -40,7 +40,7 @@ Would return::
 parse_proto()
 -------------
 
-Given a bytearray containing a version 1 protobuf, `parse_proto()` will return an 
+Given a bytearray containing a version 1 protobuf, ``parse_proto()`` will return an 
 instance of the protobuf class. You can then access the contents as an object::
 
     import takproto
@@ -52,57 +52,49 @@ instance of the protobuf class. You can then access the contents as an object::
 This method of calling parse_proto would return an object containing the data from the 
 protobuf. Object attributes can be accessed by calling them in a Pythonic manner.
 
-If you were to `print(parse_proto(b))`, you would see::
+If you were to ``print(parse_proto(b))``, you would see::
 
     cotEvent {
-    type: "a-f-G-E-V-C"
-    uid: "aa0b0312-b5cd-4c2c-bbbc-9c4c70216261"
-    sendTime: 1581203444000
-    startTime: 1581203444000
-    staleTime: 1581203471000
-    how: "h-e"
-    lat: 43.97957317
-    lon: -66.07737696
-    hae: 26.767999
-    ce: 9999999.0
-    le: 9999999.0
-    detail {
-        contact {
-        endpoint: "192.168.1.10:4242:tcp"
-        callsign: "Eliopoli HQ"
-        }
-        group {
-        name: "Yellow"
-        role: "HQ"
-        }
-        status {
-        battery: 100
-        }
-        takv {
-        device: "LENOVO 20QV0007US"
-        platform: "WinTAK-CIV"
-        os: "Microsoft Windows 10 Home"
-        version: "1.10.0.137"
-        }
-        track {
+        type: "a-f-G-E-V-C"
+        uid: "aa0b0312-b5cd-4c2c-bbbc-9c4c70216261"
+        sendTime: 1581203444000
+        startTime: 1581203444000
+        staleTime: 1581203471000
+        how: "h-e"
+        lat: 43.97957317
+        lon: -66.07737696
+        hae: 26.767999
+        ce: 9999999.0
+        le: 9999999.0
+        detail {
+            contact {
+            endpoint: "192.168.1.10:4242:tcp"
+            callsign: "Eliopoli HQ"
+            }
+            group {
+            name: "Yellow"
+            role: "HQ"
+            }
+            status {
+            battery: 100
+            }
+            takv {
+            device: "LENOVO 20QV0007US"
+            platform: "WinTAK-CIV"
+            os: "Microsoft Windows 10 Home"
+            version: "1.10.0.137"
+            }
+            track {
+            }
         }
     }
-    }
-
-
-Note: TAK Protobuf Header Bytes
-===============================
-
-When TAK clients send UDP packets containing protobufs, there is a three byte header 
-consisting of `0xbf 0x01 0xbf`. The `xmlToProto()` function adds the header bytes for 
-you, and the `parseProto()` functions expects them to be included in its input.  This 
-may change in the future, as I learn more about the TAK ecosystem.
 
 
 License
 =======
 
 Copyright 2023 Greg Albrecht <oss@undef.net>
+
 Copyright 2020 Delta Bravo-15 <deltabravo15ga@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

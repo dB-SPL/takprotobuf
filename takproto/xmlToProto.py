@@ -30,6 +30,7 @@ import re
 
 import untangle
 
+from .constants import DEFAULT_PROTO_HEADER
 from .proto import TakMessage
 
 
@@ -40,15 +41,16 @@ def xml2proto(xml):
     tak_control = tak_message.takControl
     cot_event = tak_message.cotEvent
 
-    # If this is a GeoChat message, extract the sender's UID from the event UID and
-    # place it in takControl.contactUid
-    if "GeoChat." in cot.event['uid']:
-        tak_control.contactUid = cot.event['uid'].split(".")[1]
 
-    # If XML contains an event element, write the attributes
     event = cot.event
     if not event:
-        return
+        return None
+
+    # If this is a GeoChat message, extract the sender's UID from the event UID and
+    # place it in takControl.contactUid
+    uid = event.get("uid")
+    if uid and "GeoChat." in uid:
+        tak_control.contactUid = uid.split(".")[1]
 
     base_attribs = ['type', 'access', 'qos', 'opex', 'uid', 'how']
 
@@ -63,7 +65,7 @@ def xml2proto(xml):
         send_time = datetime.strptime(cot.event['time'], '%Y-%m-%dT%H:%M:%S.%fZ')
         send_time = int(send_time.timestamp() * 1000)
         cot_event.sendTime = send_time
-                
+            
     if cot.event['start']:
         start_time = datetime.strptime(cot.event['start'], '%Y-%m-%dT%H:%M:%S.%fZ')
         start_time = int(start_time.timestamp() * 1000)
@@ -83,25 +85,26 @@ def xml2proto(xml):
             if val:
                 setattr(cot_event, attrib, float(val))
 
-    # If the XML includes a <detail> element, create cotEvent.detail
     detail = event.get("detail")
     if detail:
+        # If the XML includes a <detail> element, create cot_event.detail
         new_detail = cot_event.detail
-        # The cotEvent.detail field of a TAK protobuf is structured differently
-        # from CoT XML. cotEvent.detail may only contain xmlDetail, contact,
+
+        # The cot_event.detail field of a TAK protobuf is structured differently
+        # from CoT XML. cot_event.detail may only contain xmlDetail, contact,
         # __group, precisionlocation, status, takv, and track. xmlDetail should
         # contain an XML string with any data that does not adhere to the other
         # strongly-typed fields. See more information about each field below.
-        
+
         # If this is a GeoChat message, write the contents of <detail> in xmlDetail.
-        if "GeoChat." in event['uid']:
+        if uid and "GeoChat." in uid:
             pattern = "<detail>(.*?)</detail>"
             xmldetailstr = re.search(pattern, xml).group(1)
-            detail.xmlDetail = xmldetailstr
+            new_detail.xmlDetail = xmldetailstr
 
         contact = detail.get("contact")
         if contact:
-            attribs = ['endpoint', 'callsign']
+            attribs = ["endpoint", "callsign"]
             for attrib in attribs:
                 attrib_val = contact.get(attrib)
                 if attrib_val:
@@ -109,7 +112,7 @@ def xml2proto(xml):
 
         group = detail.get("__group")  # pylint: disable=protected-access
         if group:
-            attribs = ['name', 'role']
+            attribs = ["name", "role"]
             for attrib in attribs:
                 attrib_val = group.get(attrib)
                 if attrib_val:
@@ -117,7 +120,7 @@ def xml2proto(xml):
 
         prec_loc = detail.get("precisionlocation")
         if prec_loc:
-            attribs = ['geopointsrc', 'altsrc']
+            attribs = ["geopointsrc", "altsrc"]
             for attrib in attribs:
                 attrib_val = prec_loc.get(attrib)
                 if attrib_val:
@@ -125,13 +128,13 @@ def xml2proto(xml):
 
         status = detail.get("status")
         if status:
-            battery = status.get('battery')
+            battery = status.get("battery")
             if battery:
                 new_detail.status.battery = int(battery)
 
         takv = detail.get("takv")
         if takv:
-            attribs = ['device', 'platform', 'os', 'version']
+            attribs = ["device", "platform", "os", "version"]
             for attrib in attribs:
                 attrib_val = takv.get(attrib)
                 if attrib_val:
@@ -142,7 +145,7 @@ def xml2proto(xml):
         # floating-point.
         track = detail.get("track")
         if track:
-            attribs = ['speed', 'course']
+            attribs = ["speed", "course"]
             for attrib in attribs:
                 attrib_val = track.get(attrib)
                 if attrib_val:
@@ -151,7 +154,7 @@ def xml2proto(xml):
     # TAK protocol packets have a three-byte header.  The two 0xbf bytes on the outside
     # identify the packet as containing TAK protocol.  The 0x01 byte in the middle
     # identifies the TAK protocol version, in our case, version 1.
-    header_bytearray = bytearray(b'\xbf\x01\xbf')
+    header_bytearray = DEFAULT_PROTO_HEADER
     takmessage_bytearray = bytearray(tak_message.SerializeToString())
     output_bytearray = header_bytearray + takmessage_bytearray
 

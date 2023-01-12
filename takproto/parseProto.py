@@ -23,14 +23,14 @@
 # SOFTWARE.
 #
 
-
+from .constants import DEFAULT_PROTO_HEADER
 from .proto import TakMessage
 
 
 def parse_proto(binary):
     """Parse CoT message."""
     header = binary[:3]
-    if header != bytearray(b'\xbf\x01\xbf'):
+    if header != DEFAULT_PROTO_HEADER:
         return None
 
     binary = binary[3:]
