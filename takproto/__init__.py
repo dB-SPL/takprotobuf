@@ -24,5 +24,5 @@
 #
 
 
-from .xmlToProto import xml2proto
-from .parseProto import parse_proto
+from .functions import parse_proto, xml2proto
+
