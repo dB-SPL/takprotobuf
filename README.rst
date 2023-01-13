@@ -15,12 +15,12 @@ Protocol Buffer based Cursor on Target (CoT) messages.
 Absolute credit goes to them for their implementation and initial implementation. 
 Notable differences beteen ``takprotobuf`` & ``takproto``:
 
-1) Remove dependency on ``untangle`` module, allowing compatibility with Python 3.6 
-through 3.10. Unfortunately many single-board computers (i.e. Raspberry Pi) still ship 
-with Python 3.6, this change allows ``takproto`` to run on those systems.
-2) Added ``xmlDetails`` detection for supporting undefined Protobuf elements in XML.
-3) > 80% test coverage with **new** Unit Tests.
-4) PEP-8 & Black style, linting, documentation & formatting of code.
+1. Remove dependency on ``untangle`` module, allowing compatibility with Python 3.6 
+   through 3.10. Unfortunately many single-board computers (i.e. Raspberry Pi) still 
+   ship with Python 3.6, this change allows ``takproto`` to run on those systems.
+2. Added ``xmlDetails`` detection for supporting undefined Protobuf elements in XML.
+3. > 80% test coverage with **new** Unit Tests.
+4. PEP-8 & Black style, linting, documentation & formatting of code.
 
 As much as possible @db-SPL's licensing terms were honored in this fork.
 
