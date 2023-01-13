@@ -1,6 +1,5 @@
-# MIT License
-
-## Copyright (c) 2020 Delta Bravo-15
+Copyright 2023 Greg Albrecht <oss@undef.net>
+Copyright 2020 Delta Bravo-15 <deltabravo15ga@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
