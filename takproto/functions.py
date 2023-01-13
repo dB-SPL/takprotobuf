@@ -52,7 +52,7 @@ def parse_proto(binary):
 
 def format_time(time) -> int:
     """Format timestamp as microseconds."""
-    s_time = datetime.strptime(time, ISO_8601_UTC)
+    s_time = datetime.strptime(time + "+0000", ISO_8601_UTC + "%z")
     return int(s_time.timestamp() * 1000)
 
 
