@@ -83,5 +83,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     keywords=["Cursor on Target", "ATAK", "TAK", "CoT", "WinTAK", "iTAK"],
-    install_requires=["protobuf"]
+    install_requires=["protobuf >= 4.21.12"]
 )
