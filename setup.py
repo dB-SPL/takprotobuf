@@ -83,8 +83,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     keywords=["Cursor on Target", "ATAK", "TAK", "CoT", "WinTAK", "iTAK"],
-    install_requires=[
-		'untangle',
-		'lxml',
-    ],
+    install_requires=["protobuf"]
 )
