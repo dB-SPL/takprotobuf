@@ -16,7 +16,7 @@ Absolute credit goes to them for their initial implementation.
 
 Notable differences beteen ``takprotobuf`` & ``takproto``:
 
-1. Rebuild proto files usinc `Protocol Buffers v21 <https://protobuf.dev/>`_.
+1. Rebuild proto files using `Protocol Buffers v21 <https://protobuf.dev/>`_.
 2. Remove dependency on ``untangle`` module, allowing compatibility with Python 3.6 
    through 3.10. Unfortunately many single-board computers (i.e. Raspberry Pi) still 
    ship with Python 3.6, this change allows ``takproto`` to run on those systems.
