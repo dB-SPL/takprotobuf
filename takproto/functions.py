@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2023 Greg Albrecht <oss@undef.net>
+# Copyright 2023 Sensors & Signals LLC
 # Copyright 2020 Delta Bravo-15 <deltabravo15ga@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,41 +22,61 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-
-
-from datetime import datetime
+"""TAKProto Functions for manipulating TAK Protocol Version 1 messages."""
 
 import re
-
 import xml.etree.ElementTree as ET
 
-from .proto import TakMessage
+from datetime import datetime
+from io import BytesIO
+from typing import Optional
+
+import delimited_protobuf as dpb
+
+from takproto.constants import (
+    ISO_8601_UTC,
+    DEFAULT_MESH_HEADER,
+    DEFAULT_PROTO_HEADER,
+    TAKProtoVer,
+)
+from takproto.proto import TakMessage
 
 
-DEFAULT_PROTO_HEADER = bytearray(b"\xbf\x01\xbf")
-ISO_8601_UTC = "%Y-%m-%dT%H:%M:%S.%fZ"
+def parse_proto(msg: bytearray) -> Optional[bytearray]:
+    """Parse TAK Protocol Version 1 Mesh & Stream message."""
+    parsed = None
+
+    if msg[:3] == DEFAULT_MESH_HEADER:
+        parsed = parse_mesh(msg)
+    elif msg[0] in DEFAULT_PROTO_HEADER:
+        parsed = parse_stream(msg)
+    return parsed
 
 
-def parse_proto(binary):
-    """Parse CoT message."""
-    header = binary[:3]
-    if header != DEFAULT_PROTO_HEADER:
-        return None
-
-    binary = binary[3:]
+def parse_mesh(msg):
+    """Parse TAK Protocol Version 1 Mesh message."""
+    msg = msg[3:]
     protobuf = TakMessage()
-    protobuf.ParseFromString(binary)
-
+    protobuf.ParseFromString(bytes(msg))
     return protobuf
 
 
-def format_time(time) -> int:
+def parse_stream(msg):
+    """Parse TAK Protocol Version 1 Stream message."""
+    bio = BytesIO(msg[1:])
+    msg = dpb.read(bio, TakMessage)
+    return msg
+
+
+def format_time(time: str) -> int:
     """Format timestamp as microseconds."""
     s_time = datetime.strptime(time + "+0000", ISO_8601_UTC + "%z")
     return int(s_time.timestamp() * 1000)
 
 
-def xml2proto(xml):
+def xml2proto(
+    xml: str, protover: Optional[TAKProtoVer] = None
+):  # NOQA pylint: disable=too-many-locals,too-many-branches,too-many-statements
     """Convert plain XML CoT to Protobuf."""
     event = ET.fromstring(xml)
     tak_message = TakMessage()
@@ -88,7 +108,7 @@ def xml2proto(xml):
     # If the event element includes a point child, write the attributes
     point = event.find("point")
     if point is not None:
-        attribs = ['lat', 'lon', 'hae', 'ce', 'le']
+        attribs = ["lat", "lon", "hae", "ce", "le"]
         for attrib in attribs:
             val = point.get(attrib)
             if val:
@@ -113,7 +133,13 @@ def xml2proto(xml):
         else:
             # Add unknown elements to xmlDetail field.
             known_elem = [
-                "contact", "__group", "precisionlocation", "status", "takv", "track"]
+                "contact",
+                "__group",
+                "precisionlocation",
+                "status",
+                "takv",
+                "track",
+            ]
             for elem in detail.iterfind("*"):
                 if elem.tag not in known_elem:
                     new_detail.xmlDetail = ET.tostring(elem)
@@ -167,11 +193,28 @@ def xml2proto(xml):
                 if attrib_val:
                     setattr(new_detail.track, attrib, float(attrib_val))
 
-    # TAK protocol packets have a three-byte header.  The two 0xbf bytes on the outside
-    # identify the packet as containing TAK protocol.  The 0x01 byte in the middle
-    # identifies the TAK protocol version, in our case, version 1.
-    header_bytearray = DEFAULT_PROTO_HEADER
-    takmessage_bytearray = bytearray(tak_message.SerializeToString())
-    output_bytearray = header_bytearray + takmessage_bytearray
+    output = msg2proto(tak_message, protover)
+    return output
 
-    return output_bytearray
+
+def msg2proto(msg, protover: Optional[TAKProtoVer] = None) -> bytearray:
+    """Convert a TakMessage into a TAK Protocol Version 1 protobuf."""
+    protover = protover or TAKProtoVer.MESH
+
+    output_ba = bytearray()
+    header_ba = bytearray()
+    proto_ba = bytearray()
+
+    if protover == TAKProtoVer.MESH:
+        header_ba = DEFAULT_MESH_HEADER
+        proto_ba = bytearray(msg.SerializeToString())
+    elif protover == TAKProtoVer.STREAM:
+        header_ba = DEFAULT_PROTO_HEADER
+        output_io = BytesIO()
+        dpb.write(output_io, msg)
+        proto_ba = bytearray(output_io.getvalue())
+    else:
+        raise ValueError(f"Unsupported TAKProtoVer: {protover}")
+
+    output_ba = header_ba + proto_ba
+    return output_ba

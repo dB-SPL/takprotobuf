@@ -1,5 +1,5 @@
 #
-# Copyright 2023 Greg Albrecht <oss@undef.net>
+# Copyright 2023 Sensors & Signals LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Author:: Greg Albrecht W2GMD <oss@undef.net>
-# Copyright:: Copyright 2023 Greg Albrecht
+# Author:: Greg Albrecht <gba@snstac.com>
+# Copyright:: Copyright 2023 Sensors & Signals LLC
 # License:: Apache License, Version 2.0
 #
 
@@ -47,7 +47,7 @@ clean:
 	@rm -rf *.egg* build dist *.py[oc] */*.py[co] cover doctest_pypi.cfg \
 		nosetests.xml pylint.log output.xml flake8.log tests.log \
 		test-result.xml htmlcov fab.log .coverage __pycache__ \
-		*/__pycache__
+		*/__pycache__ .mypy_cache .pytest_cache
 
 pep8:
 	flake8 --max-line-length=88 --extend-ignore=E203,E231 --exit-zero $(this_app)/*.py
@@ -72,7 +72,7 @@ pytest:
 test: editable install_test_requirements pytest
 
 test_cov:
-	pytest --cov=$(this_app)
+	 pytest --cov=$(this_app) --cov-report term-missing
 
 black:
 	black .

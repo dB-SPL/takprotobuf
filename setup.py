@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2023 Greg Albrecht <oss@undef.net>
+# Copyright 2023 Sensors & Signals LLC
 # Copyright 2020 Delta Bravo-15
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,7 +27,7 @@
 """Setup for the Python TAK Protocol Packet - Version 1 Module.
 
 :license: MIT License
-:source: <https://github.com/ampledata/takproto>
+:source: <https://github.com/snstac/takproto>
 """
 
 import os
@@ -36,7 +36,7 @@ import sys
 import setuptools
 
 __title__ = "takproto"
-__version__ = "1.0.2"
+__version__ = "2.0.0"
 __license__ = "MIT License"
 
 
@@ -65,12 +65,13 @@ setuptools.setup(
     name=__title__,
     packages=[__title__],
     package_dir={__title__: __title__},
-    url=f"https://github.com/ampledata/{__title__}",
+    url=f"https://github.com/snstac/{__title__}",
     description=(
         "A Python module to encode & decode 'TAK Protocol Payload - Version 1'"
-        " Protocol Buffer based Cursor on Target (CoT) messages."),
+        " Protocol Buffer based Cursor on Target (CoT) messages."
+    ),
     author="Greg Albrecht",
-    author_email="oss@undef.net",
+    author_email="gba@snstac.com",
     package_data={"": ["LICENSE"]},
     license="MIT License",
     long_description=read_readme(),
@@ -83,5 +84,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     keywords=["Cursor on Target", "ATAK", "TAK", "CoT", "WinTAK", "iTAK"],
-    install_requires=["protobuf >= 4.21.0"]
+    install_requires=["protobuf >= 4.21.0", "delimited-protobuf >= 1.0.0"],
 )
