@@ -49,8 +49,7 @@ the binary protobuf::
 
     import takproto
 
-    cot = """
-    <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+    cot = """<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
     <event version='2.0' uid='aa0b0312-b5cd-4c2c-bbbc-9c4c70216261' type='a-f-G-E-V-C' time='2020-02-08T18:10:44.000Z' start='2020-02-08T18:10:44.000Z' stale='2020-02-08T18:11:11.000Z' how='h-e'>
         <point lat='43.97957317' lon='-66.07737696' hae='26.767999' ce='9999999.0' le='9999999.0' />
         <detail>
