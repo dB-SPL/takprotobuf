@@ -22,24 +22,23 @@
 # SOFTWARE.
 #
 
-"""TAKProto Module.
+"""TAKProto Constants."""
 
-:author: Greg Albrecht <gba@snstac.com>
-:copyright: Copyright 2023 Sensors & Signals LLC
-:license: MIT License
-:source: <https://github.com/snstac/takproto>
-"""
-
-from .functions import (  # NOQA
-    xml2proto,
-    parse_proto,
-    parse_mesh,
-    parse_stream,
-    format_time,
-)
-from .constants import TAKProtoVer  # NOQA
+from enum import Enum
 
 __author__ = "Greg Albrecht <gba@snstac.com>"
 __copyright__ = "Copyright 2023 Sensors & Signals LLC"
-__license__ = "MIT License"
-__source__ = "https://github.com/snstac/takproto"
+__license__ = "Apache License, Version 2.0"
+
+
+DEFAULT_PROTO_HEADER = bytearray(b"\xbf")
+DEFAULT_MESH_HEADER = bytearray(b"\xbf\x01\xbf")
+ISO_8601_UTC = "%Y-%m-%dT%H:%M:%S.%fZ"
+
+
+class TAKProtoVer(Enum):
+    """Enumerator for TAK Protocol Versions."""
+
+    XML = 0
+    MESH = 1
+    STREAM = 2
