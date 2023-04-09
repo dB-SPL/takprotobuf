@@ -63,9 +63,9 @@ def read_readme(readme_file="README.rst") -> str:
 setuptools.setup(
     version=__version__,
     name=__title__,
-    packages=[__title__],
-    package_dir={__title__: __title__},
-    url=f"https://github.com/snstac/{__title__}",
+    packages=[__title__, f"{__title__}.proto"],
+    package_dir={__title__: __title__, f"{__title__}.proto":f"{__title__}/proto"},
+    url=f"https://github.com/ampledata/{__title__}",
     description=(
         "A Python module to encode & decode 'TAK Protocol Payload - Version 1'"
         " Protocol Buffer based Cursor on Target (CoT) messages."
