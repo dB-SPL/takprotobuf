@@ -32,6 +32,7 @@
 
 from .functions import (  # NOQA
     xml2proto,
+    msg2xml,
     parse_proto,
     parse_mesh,
     parse_stream,
