@@ -218,3 +218,83 @@ def msg2proto(msg, protover: Optional[TAKProtoVer] = None) -> bytearray:
 
     output_ba = header_ba + proto_ba
     return output_ba
+
+def unformat_time(i_time: int) -> str:
+    s = datetime.utcfromtimestamp(i_time/1000)
+    return s.isoformat()[:-3] + "Z"
+
+
+def msg2xml(msg) -> bytes:
+    # print(msg)
+    if hasattr(msg, "cotEvent"):
+        e = msg.cotEvent
+    else:
+        e = msg
+    root = ET.Element("event")
+    root.set("version", "2.0")
+    root.set("type", e.type)
+    if "access" in [desc.name for desc, val in e.ListFields()]:
+        root.set("access", e.access)
+    if "qos" in [desc.name for desc, val in e.ListFields()]:
+        root.set("qos", e.qos)
+    if "opex" in [desc.name for desc, val in e.ListFields()]:
+        root.set("opex", e.opex)
+    root.set("uid", e.uid)
+    root.set("how", e.how)
+    root.set("time", unformat_time(e.sendTime))
+    root.set("start", unformat_time(e.startTime))
+    root.set("stale", unformat_time(e.staleTime))
+    point = ET.SubElement(root, "point")
+    point.set("lat", str(e.lat))
+    point.set("lon", str(e.lon))
+    point.set("hae", str(e.hae))
+    point.set("ce", str(e.ce))
+    point.set("le", str(e.le))
+    # print(ET.tostring(root))
+    if "detail" in [desc.name for desc, val in e.ListFields()]:
+        detail = ET.SubElement(root, "detail")
+        # print(e.detail.xmlDetail)
+        if "xmlDetail" in [desc.name for desc, val in e.detail.ListFields()]:
+            xml_detail = ET.fromstring('<xml_detail>' + e.detail.xmlDetail + '</xml_detail>')
+            # print(ET.tostring(xml_detail))
+            for detail_element in xml_detail:
+                detail.append(detail_element)
+            # print(ET.tostring(root))
+        if "contact" in [desc.name for desc, val in e.detail.ListFields()]:
+            contact = ET.SubElement(detail, "contact")
+            if "endpoint" in [desc.name for desc, val in e.detail.contact.ListFields()]:
+                contact.set("endpoint", e.detail.contact.endpoint)
+            if "callsign" in [desc.name for desc, val in e.detail.contact.ListFields()]:
+                contact.set("callsign", e.detail.contact.callsign)
+        if "group" in [desc.name for desc, val in e.detail.ListFields()]:
+            group = ET.SubElement(detail, "__group")
+            if "name" in [desc.name for desc, val in e.detail.group.ListFields()]:
+                group.set("name", e.detail.group.name)
+            if "role" in [desc.name for desc, val in e.detail.group.ListFields()]:
+                group.set("role", e.detail.group.role)
+        if "precisionLocation" in [desc.name for desc, val in e.detail.ListFields()]:
+            precisionlocation = ET.SubElement(detail, "precisionlocation")
+            if "geopointsrc" in [desc.name for desc, val in e.detail.precisionLocation.ListFields()]:
+                precisionlocation.set("geopointsrc", e.detail.precisionLocation.geopointsrc)
+            if "altsrc" in [desc.name for desc, val in e.detail.precisionLocation.ListFields()]:
+                precisionlocation.set("altsrc", e.detail.precisionLocation.altsrc)
+        if "status" in [desc.name for desc, val in e.detail.ListFields()]:
+            status = ET.SubElement(detail, "status")
+            if "battery" in [desc.name for desc, val in e.detail.status.ListFields()]:
+                status.set("battery", str(e.detail.status.battery))
+        if "takv" in [desc.name for desc, val in e.detail.ListFields()]:
+            takv = ET.SubElement(detail, "takv")
+            if "device" in [desc.name for desc, val in e.detail.takv.ListFields()]:
+                takv.set("device", e.detail.takv.device)
+            if "platform" in [desc.name for desc, val in e.detail.takv.ListFields()]:
+                takv.set("platform", e.detail.takv.platform)
+            if "os" in [desc.name for desc, val in e.detail.takv.ListFields()]:
+                takv.set("os", e.detail.takv.os)
+            if "version" in [desc.name for desc, val in e.detail.takv.ListFields()]:
+                takv.set("version", e.detail.takv.version)
+        if "track" in [desc.name for desc, val in e.detail.ListFields()]:
+            track = ET.SubElement(detail, "track")
+            if "course" in [desc.name for desc, val in e.detail.track.ListFields()]:
+                track.set("course", str(e.detail.track.course))
+                track.set("speed", str(e.detail.track.speed))
+    return ET.tostring(root)
