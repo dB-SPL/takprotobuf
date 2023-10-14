@@ -32,11 +32,13 @@
 
 from .functions import (  # NOQA
     xml2proto,
-    msg2xml,
     parse_proto,
     parse_mesh,
     parse_stream,
     format_time,
+    unformat_time,
+    msg2xml,
+    proto2xml,
 )
 from .constants import TAKProtoVer  # NOQA
 
