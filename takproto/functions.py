@@ -298,3 +298,8 @@ def msg2xml(msg) -> bytes:
                 track.set("course", str(e.detail.track.course))
                 track.set("speed", str(e.detail.track.speed))
     return ET.tostring(root)
+
+
+def proto2xml(msg) -> bytes:
+    parsed = parse_proto(msg)
+    return msg2xml(parsed)
