@@ -1,5 +1,5 @@
-.. image:: ./docs/pytak_logo-256x264.png
-    :alt: PyTAK Logo
+13 OCT 2023: Merged downstream chamges from takproto fork from @snstac into main project.  See "dev" branch for additional functions.
+
 
 takproto: TAK Protocol Python Module
 ************************************
